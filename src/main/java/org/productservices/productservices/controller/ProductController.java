@@ -1,10 +1,12 @@
 package org.productservices.productservices.controller;
 
 import org.productservices.productservices.dtos.GenericProductDto;
+import org.productservices.productservices.exceptions.NotFoundException;
 import org.productservices.productservices.models.Product;
 import org.productservices.productservices.productservices.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +38,14 @@ public class ProductController {
    // http://localhost:8080/products/123?=456
 //    @GetMapping("/products/{id}")
       @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id) {
+    public GenericProductDto getProductById(@PathVariable("id") Long id)throws NotFoundException {
         return productService.getProductById(id);
         //return "here is product id "+id;
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    private void handleNotFoundException(){
+        System.out.println("Not found Exception happended");
     }
 //    @DeleteMapping("/products/{id}")
     //M==>1
