@@ -1,5 +1,6 @@
 package org.productservices.productservices.controller;
 
+import org.productservices.productservices.dtos.ExceptionDto;
 import org.productservices.productservices.dtos.GenericProductDto;
 import org.productservices.productservices.exceptions.NotFoundException;
 import org.productservices.productservices.models.Product;
@@ -44,9 +45,22 @@ public class ProductController {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    private void handleNotFoundException(){
-        System.out.println("Not found Exception happended");
+//    private void handleNotFoundException(){ //void
+//        System.out.println("Not found Exception happended");
+//    }
+
+//    private ResponseEntity<ExceptionDto> handleNotFoundException(){ //custom message for exception
+//        //System.out.println("Not found Exception happended");
+//        return new ResponseEntity(new ExceptionDto(HttpStatus.NOT_FOUND,"hi"),
+//                HttpStatus.NOT_FOUND);
+//    }
+
+    private ResponseEntity<ExceptionDto> handleNotFoundException(NotFoundException notFoundException ){ //best message for exception from inner class
+        //System.out.println("Not found Exception happended");
+        return new ResponseEntity(new ExceptionDto(HttpStatus.NOT_FOUND,notFoundException.getMessage()),
+                HttpStatus.NOT_FOUND);
     }
+
 //    @DeleteMapping("/products/{id}")
     //M==>1
 //      @DeleteMapping("{id}")
