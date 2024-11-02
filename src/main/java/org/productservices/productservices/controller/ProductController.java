@@ -30,7 +30,8 @@ public class ProductController {
 //    @GetMapping("/products/{id}")
       @GetMapping("{id}")
     public String getProductById(@PathVariable("id") Long id) {
-        return "here is product id "+id;
+        return productService.getProductById(id);
+        //return "here is product id "+id;
     }
 //    @DeleteMapping("/products/{id}")
       @DeleteMapping("{id}")
