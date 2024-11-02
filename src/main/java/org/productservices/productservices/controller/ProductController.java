@@ -49,8 +49,8 @@ public class ProductController {
         return productService.createProduct(product);
     }
     @PutMapping("{}")
-    public void updateProductsById(){
-
+    public GenericProductDto updateProductsById(@RequestBody GenericProductDto product){
+        return productService.createProduct(product);
     }
 
 }
