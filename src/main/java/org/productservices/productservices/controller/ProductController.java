@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 //@RequestMapping("/products")
 @RequestMapping("api/v1/products")
@@ -24,8 +26,10 @@ public class ProductController {
 //    }
 //    @GetMapping("/products") //removed due to request mapping
       @GetMapping
-    public void getAllProducts() {
-
+    public List<GenericProductDto> getAllProducts() {
+//        return List.of(new GenericProductDto(),
+//                       new GenericProductDto());
+          return productService.getAllProducts();
     }
    // http://localhost:8080/products/123?=456
 //    @GetMapping("/products/{id}")
@@ -36,8 +40,8 @@ public class ProductController {
     }
 //    @DeleteMapping("/products/{id}")
       @DeleteMapping("{id}")
-    public void deleteProductById(String name) {
-
+    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
+        return productService.deleteProduct(id);
     }
     @PostMapping
     public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
@@ -48,4 +52,5 @@ public class ProductController {
     public void updateProductsById(){
 
     }
+
 }

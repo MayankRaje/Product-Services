@@ -1,8 +1,9 @@
 package org.productservices.productservices.productservices;
 
 import org.productservices.productservices.dtos.GenericProductDto;
-import org.productservices.productservices.models.Product;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("selfProductServiceImpl")
 public class SelfProductServiceImpl implements ProductService{
@@ -18,6 +19,16 @@ public class SelfProductServiceImpl implements ProductService{
 //    }
 
     public GenericProductDto getProductById(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<GenericProductDto> getAllProducts() {
+        return List.of();
+    }
+
+    @Override
+    public GenericProductDto deleteProduct(Long id) {
         return null;
     }
 }
