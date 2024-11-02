@@ -2,6 +2,7 @@ package org.productservices.productservices.productservices;
 
 import org.productservices.productservices.dtos.GenericProductDto;
 import org.productservices.productservices.dtos.fakeStoreProductDto;
+import org.productservices.productservices.exceptions.NotFoundException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -46,14 +47,16 @@ public class FakeStoreProductService implements ProductService{
 //        //return null;
 //    }
 
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(Long id) throws NotFoundException {
         //return new Product();
         RestTemplate restTemplate=restTemplateBuilder.build();
         ResponseEntity<fakeStoreProductDto>response=restTemplate.getForEntity(getProductRequestUrl, fakeStoreProductDto.class ,id);//if 2 variale put both by comma,,
         //response.getStatusCode();
 
         fakeStoreProductDto dto=response.getBody();
-
+        if(dto==null){
+            throw new NotFoundException("Product with id"+id+"does not exist");
+        }
         GenericProductDto productDto=new GenericProductDto();
         productDto.setImage(dto.getImage());
         productDto.setDescription(dto.getDescription());
@@ -61,6 +64,7 @@ public class FakeStoreProductService implements ProductService{
         productDto.setPrice(dto.getPrice());
         //return "here is product id "+id;
         //return null;
+
         return productDto;
     }
 
