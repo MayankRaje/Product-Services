@@ -1,5 +1,6 @@
 package org.productservices.productservices.controller;
 
+import org.productservices.productservices.dtos.GenericProductDto;
 import org.productservices.productservices.models.Product;
 import org.productservices.productservices.productservices.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ProductController {
    // http://localhost:8080/products/123?=456
 //    @GetMapping("/products/{id}")
       @GetMapping("{id}")
-    public String getProductById(@PathVariable("id") Long id) {
+    public GenericProductDto getProductById(@PathVariable("id") Long id) {
         return productService.getProductById(id);
         //return "here is product id "+id;
     }
@@ -39,8 +40,9 @@ public class ProductController {
 
     }
     @PostMapping
-    public void createProduct(Product product) {
-
+    public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
+        //return "created new product item with name :"+ product.getTitle();
+        return productService.createProduct(product);
     }
     @PutMapping("{}")
     public void updateProductsById(){

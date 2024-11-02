@@ -2,16 +2,14 @@ package org.productservices.productservices.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.productservices.productservices.models.Category;
+
 @Getter
 @Setter
-
-public class fakeStoreProductDto {
+public class GenericProductDto {
     private Long id;
     private String title;
-    private double price;
-    private String category;
     private String description;
     private String image;
-
+    private String category;
+    private double price;
 }
