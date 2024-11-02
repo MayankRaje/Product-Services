@@ -5,6 +5,8 @@ import org.productservices.productservices.models.Product;
 import org.productservices.productservices.productservices.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,10 +41,21 @@ public class ProductController {
         //return "here is product id "+id;
     }
 //    @DeleteMapping("/products/{id}")
-      @DeleteMapping("{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
-        return productService.deleteProduct(id);
+    //M==>1
+//      @DeleteMapping("{id}")
+//    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
+//        return productService.deleteProduct(id);
+//    }
+    //M==>2
+    @DeleteMapping("{id}")
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) {
+        ResponseEntity<GenericProductDto> response= new ResponseEntity<>(
+                productService.deleteProduct(id),
+                HttpStatus.OK
+        );
+        return response;
     }
+
     @PostMapping
     public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
         //return "created new product item with name :"+ product.getTitle();
